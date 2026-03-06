@@ -26,9 +26,16 @@ class Ship:
         r1, c1 = start
         r2, c2 = end
 
-        for r_var in range(min(r1, r2), max(r1, r2) + 1):
+        if r1 != r2 and c1 != c2:
+            raise ValueError("Ships must be horizontal or vertical, "
+                             "not diagonal or rectangular.")
+
+        if r1 == r2:
             for c_var in range(min(c1, c2), max(c1, c2) + 1):
-                self.decks.append(Deck(r_var, c_var))
+                self.decks.append(Deck(r1, c_var))
+        else:
+            for r_var in range(min(r1, r2), max(r1, r2) + 1):
+                self.decks.append(Deck(r_var, c1))
 
     def get_deck(self, row: int, column: int) -> Optional[Deck]:
         for deck in self.decks:
